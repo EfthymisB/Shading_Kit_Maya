@@ -5,7 +5,7 @@
 
 ## Python2 - (**Maya 2018 / 2019 / 2020**)
 
->1. Download the [files](https://github.com/EfthymisB/Shading_Kit_Maya/archive/refs/heads/main.zip).  
+>1. Download the [files](archive/refs/heads/main.zip).  
 >2. Copy the folder `ShadingKit_python2` to `C:\Users\<UserName>\Documents\maya\scripts` or in your custom script directory.
 >3. Create a shelf button and add the following code in the `Command/Python` tab:
 >```
