@@ -62,7 +62,7 @@
 >
 > > Enable the `Use Directory` button.
 > 
-> >The script will iterate through each file in the given directory and if it finds any Aliases on the filename, it will load the corresponding file.
+> >The script will iterate through each file in the given directory and if it finds any [Aliases](MANUAL.md#8-file-name-aliases) on the filename, it will load the corresponding file.
 
 
 ![use_directory](https://user-images.githubusercontent.com/87680516/145152367-0bc687f4-aaaa-4bee-85d2-00df9a72a64a.png)
@@ -79,36 +79,36 @@
 ### 8. File name Aliases
 
 >Base Color
->>**basecolor, diffuse, albedo, base_color, base color**
+>>`basecolor`, `diffuse`, `albedo`, `base_color`, `base color`
 > 
 >Specular Roughness
->>**spec, roughness**
+>>`spec`, `roughness`
 > 
 >Metalness
->>**metal, metalness, 'metallic**
+>>`metal`, `metalness`, `metallic`
 > 
 >Displacement
->>**height, displace**
+>>`height`, `displace`
 > 
 >Normal
->>**normal, bump**
+>>`normal`, `bump`
 > 
 >Coat Roughness
->>**coat**
+>>`coat`
 > 
 >Sub-surface scattering
->>**sss, subsurface**
+>>`sss`, `subsurface`
 > 
 >Transmission
->>**transmission, transmissionweight, transmission_weight, transmission weight**
+>>`transmission`, `transmissionweight`, `transmission_weight`, `transmission weight`
 > 
 >Opacity
->>**opacity**
+>>`opacity`
 #
 >Example:
 > 
 > `woodenTable_diffuse.1001.exr`
 > 
-> Because `diffuse` is an alias for Base Color and it is in the file name, it will connect that file into the base color of the shader.
+> Since `diffuse` is in the file name and it's an alias for **Base Color**, it will connect that file into the base color of the shader.
 
  
