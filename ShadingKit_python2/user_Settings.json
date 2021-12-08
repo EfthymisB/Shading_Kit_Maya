@@ -1,25 +1,114 @@
 {
-    "assign_to_viewport": false, 
-    "baseColorButton": false, 
-    "but_color": " rgb(85, 255, 255)", 
-    "coatButton": false, 
-    "displacementButton": false, 
-    "file_formats": {
-        "exr": true, 
-        "jpeg": true, 
-        "jpg": true, 
-        "png": true, 
-        "tga": true, 
-        "tif": true
-    }, 
-    "metalnessButton": false, 
-    "normalButton": false, 
-    "opacityButton": false, 
-    "save_reminder": "00.00.15", 
-    "save_sound": false, 
-    "specularButton": false, 
-    "sssButton": false, 
-    "transmissionButton": false, 
-    "udim": false, 
-    "use_dir": false
+    "start_up_settings": {
+        "assign_to_viewport": false,
+        "baseColorButton": false,
+        "but_color": " rgb(85, 255, 255)",
+        "coatButton": false,
+        "displacementButton": false,
+        "file_formats": {
+            "exr": true,
+            "jpeg": true,
+            "jpg": true,
+            "png": true,
+            "tga": true,
+            "tif": true
+        },
+        "metalnessButton": false,
+        "normalButton": false,
+        "opacityButton": false,
+        "save_reminder": "00.15.00",
+        "save_sound": false,
+        "specularButton": false,
+        "sssButton": false,
+        "transmissionButton": false,
+        "udim": false,
+        "use_dir": false
+    },
+    "texture_aliases": {
+        "Base Color": [
+            "base_color",
+            [
+                "basecolor",
+                "diffuse",
+                "albedo",
+                "base_color",
+                "base color"
+            ],
+            ".outColor",
+            ".baseColor"
+        ],
+        "Coat R.": [
+            "coat_roughness",
+            [
+                "coat"
+            ],
+            ".outColorR",
+            ".coatRoughness"
+        ],
+        "Displace": [
+            "displacement",
+            [
+                "height",
+                "displace"
+            ],
+            ".outColorR",
+            ".displacement"
+        ],
+        "Metalness": [
+            "metalness",
+            [
+                "metal",
+                "metalness",
+                "metallic"
+            ],
+            ".outColorR",
+            ".metalness"
+        ],
+        "Normal": [
+            "normal",
+            [
+                "normal",
+                "bump"
+            ],
+            ".outColorR",
+            ".bumpValue"
+        ],
+        "Opacity": [
+            "opacity",
+            [
+                "opacity"
+            ],
+            ".outColor",
+            ".opacity"
+        ],
+        "SSS": [
+            "subsurface",
+            [
+                "sss",
+                "subsurface"
+            ],
+            ".outColor",
+            ".subsurfaceColor"
+        ],
+        "Specular R.": [
+            "spec_roughness",
+            [
+                "spec",
+                "roughness"
+            ],
+            ".outColorR",
+            ".specularRoughness"
+        ],
+        "Transmis.": [
+            "transmission",
+            [
+                "transmission",
+                "transmissionweight",
+                "transmission_weight",
+                "transmission weight"
+            ],
+            ".outColorR",
+            ".transmission"
+        ]
+    }
 }

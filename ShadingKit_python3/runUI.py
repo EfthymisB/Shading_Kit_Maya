@@ -104,7 +104,7 @@ class Second(QtWidgets.QMainWindow):
         self.ui_file_formats.setupUi(self)
 
         for but in self.ui_file_formats.file_formats_Grp.buttons():
-            if old_settings["file_formats"][but.objectName()[:-4]]:
+            if old_settings["start_up_settings"]["file_formats"][but.objectName()[:-4]]:
                 but.setChecked(True)
 
         self.setWindowModality(QtCore.Qt.ApplicationModal)
@@ -123,9 +123,9 @@ class Second(QtWidgets.QMainWindow):
 
         for but in self.ui_file_formats.file_formats_Grp.buttons():
             if but.isChecked():
-                old_settings["file_formats"][but.objectName()[:-4]] = True
+                old_settings["start_up_settings"]["file_formats"][but.objectName()[:-4]] = True
             else:
-                old_settings["file_formats"][but.objectName()[:-4]] = False
+                old_settings["start_up_settings"]["file_formats"][but.objectName()[:-4]] = False
 
         # Save and close user_Settings.json
         with open(user_settings_path, 'w') as file1:
@@ -140,18 +140,10 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
         super(MainWindow, self).__init__(parent)
 
         with open(user_settings_path, 'r') as file:
-            self.user_settings = json.load(file)
-        self.default_but_color = self.user_settings['but_color']
-
-        self.texture_pass_list = {'Base Color': ('base_color', ['basecolor', 'diffuse', 'albedo', 'base_color', 'base color'], '.outColor', '.baseColor'),
-                             'Specular R.': ('spec_roughness', ['spec', 'roughness'], '.outColorR', '.specularRoughness'),
-                             'Metalness': ('metalness', ['metal', 'metalness', 'metallic'], '.outColorR', '.metalness'),
-                             'Displace': ('displacement', ['height', 'displace'], '.outColorR', '.displacement'),
-                             'Normal': ('normal', ['normal', 'bump'], '.outColorR', '.bumpValue'),
-                             'Coat R.': ('coat_roughness', ['coat'], '.outColorR', '.coatRoughness'),
-                             'SSS': ('subsurface', ['sss', 'subsurface'], '.outColor', '.subsurfaceColor'),
-                             'Transmis.': ('transmission', ['transmission', 'transmissionweight', 'transmission_weight', 'transmission weight'], '.outColorR', '.transmission'),
-                             'Opacity': ('opacity', ['opacity'], '.outColor', '.opacity')}
+            settings = json.load(file)
+        self.user_settings = settings["start_up_settings"]
+        self.texture_pass_list = settings["texture_aliases"]
+        self.default_but_color = self.user_settings["but_color"]
 
         self.ui = mainUI.Ui_MainWindow()
         self.ui.setupUi(self)
@@ -375,73 +367,82 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
         selected = self.ui.buttonColorGroup.checkedButton()
         if selected is not None:
             new_color = selected.styleSheet().split('QWidget:hover')[0].split(';')[1].split(':')[1]
-            old_settings['but_color'] = new_color
+            old_settings["start_up_settings"]['but_color'] = new_color
 
         # Get h,m,s
         hours = self.ui.comboBox_hours.currentText()
         minutes = self.ui.comboBox_mins.currentText()
         seconds = self.ui.comboBox_secs.currentText()
-        old_settings['save_reminder'] = hours + "." + minutes + "." + seconds
+        old_settings["start_up_settings"]['save_reminder'] = hours + "." + minutes + "." + seconds
 
         # Iterate through default texture buttons and check if selected
         for but in self.ui.buttonGroup_def.buttons():
             if but.isChecked():
-                old_settings[but.objectName()[:-4]] = True
+                old_settings["start_up_settings"][but.objectName()[:-4]] = True
             else:
-                old_settings[but.objectName()[:-4]] = False
+                old_settings["start_up_settings"][but.objectName()[:-4]] = False
 
         if self.ui.udim_default.isChecked():
-            old_settings['udim'] = True
+            old_settings["start_up_settings"]['udim'] = True
         else:
-            old_settings['udim'] = False
+            old_settings["start_up_settings"]['udim'] = False
 
         if self.ui.assign_to_selected_default.isChecked():
-            old_settings['assign_to_viewport'] = True
+            old_settings["start_up_settings"]['assign_to_viewport'] = True
         else:
-            old_settings['assign_to_viewport'] = False
+            old_settings["start_up_settings"]['assign_to_viewport'] = False
 
         if self.ui.save_reminder_sound.isChecked():
-            old_settings['save_sound'] = True
+            old_settings["start_up_settings"]['save_sound'] = True
         else:
-            old_settings['save_sound'] = False
+            old_settings["start_up_settings"]['save_sound'] = False
 
         # Save and close user_Settings.json
         with open(user_settings_path, 'w') as file1:
             json.dump(old_settings, file1, indent=4, sort_keys=True)
         file1.close()
 
-        self.user_settings = old_settings
+        self.user_settings = old_settings["start_up_settings"]
         return self.user_settings
 
     def reset_settings(self):
-        # Open user_Settings.json
-        #with open(user_settings_path, 'r') as file1:
-         #   old_settings = json.load(file1)
 
-        new_settings = {
-                        "assign_to_viewport": False,
-                        "baseColorButton": False,
-                        "but_color": " rgb(85, 255, 255)",
-                        "coatButton": False,
-                        "displacementButton": False,
-                        "file_formats": {
-                            "exr": True,
-                            "jpeg": False,
-                            "jpg": False,
-                            "png": False,
-                            "tga": False,
-                            "tif": False
+        new_settings = {"start_up_settings": {
+                            "assign_to_viewport": False,
+                            "baseColorButton": False,
+                            "but_color": " rgb(85, 255, 255)",
+                            "coatButton": False,
+                            "displacementButton": False,
+                            "file_formats": {
+                                "exr": True,
+                                "jpeg": True,
+                                "jpg": True,
+                                "png": True,
+                                "tga": True,
+                                "tif": True
+                            },
+                            "metalnessButton": False,
+                            "normalButton": False,
+                            "opacityButton": False,
+                            "save_reminder": "00.15.00",
+                            "save_sound": False,
+                            "specularButton": False,
+                            "sssButton": False,
+                            "transmissionButton": False,
+                            "udim": False,
+                            "use_dir": False
                         },
-                        "metalnessButton": False,
-                        "normalButton": False,
-                        "opacityButton": False,
-                        "save_reminder": "01.30.00",
-                        "save_sound": False,
-                        "specularButton": False,
-                        "sssButton": False,
-                        "transmissionButton": False,
-                        "udim": False,
-                        "use_dir": False
+                        "texture_aliases": {
+                            "Base Color": ["base_color", [ "basecolor", "diffuse", "albedo", "base_color", "base color"], ".outColor", ".baseColor"],
+                            "Coat R.": [ "coat_roughness", [ "coat" ], ".outColorR", ".coatRoughness" ],
+                            "Displace": [ "displacement", [ "height", "displace" ], ".outColorR", ".displacement" ],
+                            "Metalness": [ "metalness", [ "metal", "metalness", "metallic" ], ".outColorR", ".metalness" ],
+                            "Normal": [ "normal", [ "normal", "bump" ], ".outColorR", ".bumpValue" ],
+                            "Opacity": [ "opacity", [ "opacity" ], ".outColor", ".opacity" ],
+                            "SSS": [ "subsurface", [ "sss", "subsurface" ], ".outColor", ".subsurfaceColor" ],
+                            "Specular R.": [ "spec_roughness", [ "spec", "roughness" ], ".outColorR", ".specularRoughness" ],
+                            "Transmis.": [ "transmission", [ "transmission", "transmissionweight", "transmission_weight", "transmission weight" ], ".outColorR", ".transmission" ]
+                        }
                     }
 
         # Save and close user_Settings.json
@@ -491,7 +492,7 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
         return self.current_time
 
     def dockCloseEventTriggered(self):
-        print('Shading-Kit successfully closed')
+        print('Shading-Kit successfully closed.')
         self.timer.stop()
         OpenMaya.MSceneMessage.removeCallback(self.save_scene_callBack)
 
@@ -644,15 +645,6 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
                 for item in self.util_grps[but]:
                     item.setDisabled(True)
 
-    def connect_place2dtexture(self, place2d, files, *args):
-        attr_list = ['.vertexCameraOne', '.vertexUvOne', '.vertexUvThree', '.vertexUvTwo', '.coverage', '.mirrorU',
-                     '.mirrorV', '.noiseUV', '.offset', '.repeatUV', '.rotateFrame', '.rotateUV', '.stagger',
-                     '.translateFrame', '.wrapU', '.wrapV']
-        cmds.connectAttr(place2d + '.outUV', files + '.uvCoord')
-        cmds.connectAttr(place2d + '.outUvFilterSize', files + '.uvFilterSize')
-        for attr in attr_list:
-            cmds.connectAttr(place2d + attr, files + attr)
-
     def utility_nodes(self, file_node, new_shader, txt, connection, node_output, *args):
 
         sel_nod = []
@@ -682,8 +674,8 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
 
     def check_dir(self, file_node, abbreviations, *args):
 
-        with open(user_settings_path, 'r') as file:
-            self.user_settings = json.load(file)
+        # with open(user_settings_path, 'r') as file:
+        #     self.user_settings = json.load(file)
 
         directory_path = self.ui.directoryPath.text()
 
@@ -755,7 +747,7 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
         if txt_found:
             plc2dtxtr = cmds.shadingNode('place2dTexture', asUtility=True, skipSelect=True)
             for node in txt_found:
-                self.connect_place2dtexture(plc2dtxtr, node[0])
+                cmds.defaultNavigation(connectToExisting=True, source=plc2dtxtr, destination=node[0])
                 if use_dir:
                     self.check_dir(node[0], node[1])
 
