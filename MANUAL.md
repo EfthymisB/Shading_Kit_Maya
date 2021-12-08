@@ -67,7 +67,7 @@
 
 ![use_directory](https://user-images.githubusercontent.com/87680516/145152367-0bc687f4-aaaa-4bee-85d2-00df9a72a64a.png)
 ![file_formats](https://user-images.githubusercontent.com/87680516/145152356-12b3365e-58f5-4cf6-a2a4-585661b0215f.gif)
-
+![Rb8cBdIXHu](https://user-images.githubusercontent.com/87680516/145270338-ff19c78d-e350-4e4b-bc17-0d3438529f4f.gif)
 ---
 ### 7. Delete Shading Network
 
