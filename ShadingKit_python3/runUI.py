@@ -7,7 +7,7 @@ Shading-Kit for Maya
 """
 
 from maya.app.general.mayaMixin import MayaQWidgetDockableMixin
-from ShadkingKit_python3.UIs import mainUI, shader_list, file_formats
+from ShadingKit_python3.UIs import mainUI, shader_list, file_formats
 from PySide2 import QtCore, QtGui, QtWidgets
 from functools import partial
 from maya import OpenMaya
