@@ -3,25 +3,25 @@
 
 ---
 
-## Python2:
+## Python2 - (**Maya 2018 / 2019 / 2020**)
 
->1. Download: `ShadingKit_python2` (**Maya 2018 / 2019 / 2020**)
->2. Extract folder in `C:\Users\<UserName>\Documents\maya\scripts` or in your custom script directory.
->3. Create a shelf button and add the following in the `Command/Python` tab:
+>1. Download the [files](https://github.com/EfthymisB/Shading_Kit_Maya/archive/refs/heads/main.zip).  
+>2. Copy the folder `ShadingKit_python2` to `C:\Users\<UserName>\Documents\maya\scripts` or in your custom script directory.
+>3. Create a shelf button and add the following code in the `Command/Python` tab:
 >```
 >try:
 >   reload(runUI)
 >except NameError:
 >   from ShadingKit_python2 import runUI
 > ```
-> *(or copy the code in the Script Editor, highlight everything and **Click, Drag and Drop** it in the shelf)*
+> *(or copy the code in the Script Editor, highlight everything and then **Click, Drag and Drop** it in the shelf)*
 ---
 
-## Python3:
+## Python3 -  (**Maya 2022+**)
 
->1. Download: `ShadingKit_python3` (**Maya 2022+**)
->2. Extract folder in `C:\Users\<UserName>\Documents\maya\scripts` or in your custom script directory.
->3. Create a shelf button and add the following in the `Command/Python` tab:
+>1. Download the [files](https://github.com/EfthymisB/Shading_Kit_Maya/archive/refs/heads/main.zip).
+>2. Copy the folder `ShadingKit_python3` to `C:\Users\<UserName>\Documents\maya\scripts` or in your custom script directory.
+>3. Create a shelf button and add the following code in the `Command/Python` tab:
 >```
 >import importlib
 >try:
@@ -29,7 +29,7 @@
 >except NameError:
 >   from ShadingKit_python3 import runUI
 > ```
-> *(or copy the code in the Script Editor, highlight everything and **Click, Drag and Drop** it in the shelf)*
+> *(or copy the code in the Script Editor, highlight everything and then **Click, Drag and Drop** it in the shelf)*
 ---
 
-Contact: **[efthymisb.vfx@gmail.com]()**
+Contact: **[efthymisb.vfx@gmail.com](mailto:efthymisb.vfx@gmail.com)**
