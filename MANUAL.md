@@ -3,7 +3,7 @@
 ---
 ### 1. Shading Tab 
 
-![shading_tab](https://user-images.githubusercontent.com/87680516/145152365-03e64384-db43-4bfc-936b-351332928623.png)
+![settings_tab2](https://user-images.githubusercontent.com/87680516/145273788-4e21b5cb-4054-4dbf-aeef-0d71ba758ac1.png)
 
 ---
 ### 2. Settings Tab
@@ -36,6 +36,15 @@
  
 
 ![Expand_shrink](https://user-images.githubusercontent.com/87680516/145152355-5a62efc0-64e7-4f74-8bf1-1ada0fc446ad.gif)
+
+> > 1. Select a shader
+> 
+> > 2. Highlight the AOVs you want
+> 
+> > 3. Press `Create`
+>
+> It will create an AOV per layer, rendering the RAW maps. **_(currently not working properly for Opacity)_**
+
 ![Create_AOVs](https://user-images.githubusercontent.com/87680516/145152348-844053fd-6480-47f3-b235-b3263a254c9d.gif)
 ---
 ### 5. Create Shading Network
@@ -109,6 +118,6 @@
 > 
 > `woodenTable_diffuse.1001.exr`
 > 
-> Since `diffuse` is in the file name and it's an alias for **Base Color**, it will connect that file into the base color of the shader.
+> Since `diffuse` is in the file name and it is also an alias for **Base Color**, it will connect that file into the base color of the shader.
 
  
