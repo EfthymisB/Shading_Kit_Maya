@@ -18,6 +18,7 @@ import mtoa.aovs as aovs
 import maya.mel as mel
 import shiboken2
 import importlib
+import winsound
 import json
 import os
 
@@ -222,6 +223,8 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
         self.ui.comboBox_secs.activated.connect(self.change_save_reminder)
         self.save_reminder = (int(save_values[0]) * 3600) + (int(save_values[1]) * 60) + int(save_values[2])
 
+        self.ui.save_reminder_sound.setChecked(self.user_settings["save_sound"])
+
         # SET ICONS FOR SELECT/DESELECT ALL
         self.ui.selectAll.clicked.connect(self.select_all)
         self.ui.selectAll.setIcon(QtGui.QIcon(os.path.join(script_folder, "icons", "all.png")))
@@ -319,6 +322,13 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
         self.bot_layout_anim.setDuration(400)
         self.aovFrameAnim.setDuration(400)
 
+        # HIDE shaderCount and textureFileCount
+        self.ui.textureFileCount.setVisible(False)
+        self.ui.textureFileCountColon.setVisible(False)
+        self.ui.textureFileCountLabel.setVisible(False)
+        self.ui.shaderCount.setVisible(False)
+        self.ui.shaderCountColon.setVisible(False)
+        self.ui.shaderCountLabel.setVisible(False)
 
     def test(self, *args):
         print('It works!')
@@ -390,10 +400,18 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
         else:
             old_settings['assign_to_viewport'] = False
 
+        if self.ui.save_reminder_sound.isChecked():
+            old_settings['save_sound'] = True
+        else:
+            old_settings['save_sound'] = False
+
         # Save and close user_Settings.json
         with open(user_settings_path, 'w') as file1:
             json.dump(old_settings, file1, indent=4, sort_keys=True)
         file1.close()
+
+        self.user_settings = old_settings
+        return self.user_settings
 
     def reset_settings(self):
         # Open user_Settings.json
@@ -418,6 +436,7 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
                         "normalButton": False,
                         "opacityButton": False,
                         "save_reminder": "01.30.00",
+                        "save_sound": False,
                         "specularButton": False,
                         "sssButton": False,
                         "transmissionButton": False,
@@ -462,6 +481,11 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
         if self.current_time >= self.save_reminder:
             if (int(seconds) % 2) == 0:
                 self.ui.lastSave.setStyleSheet(u"color: rgba(200, 0, 0);")
+                if self.user_settings["save_sound"]:
+                    duration = 50
+                    freq = 4000
+                    winsound.Beep(freq, duration)
+                    winsound.Beep(freq, duration)
             else:
                 self.ui.lastSave.setStyleSheet(u"color: rgba(200, 200, 200);")
         return self.current_time
