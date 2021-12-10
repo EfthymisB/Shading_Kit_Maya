@@ -80,12 +80,21 @@
 ---
 ### 7. Delete Shading Network
 
-> If exists, deletes the Shader with the given name, otherwise it shows a window to select which shader to delete (could be more than one)
+> If exists, deletes the Shader (_the entire network_) with the given name, otherwise it shows a window to select which shader(s) to delete.
  
 ![Delete_shading_network](https://user-images.githubusercontent.com/87680516/145152352-24802aad-f949-455c-8a09-2c6ccb51a03c.gif)
 
 ---
-### 8. File name Aliases
+### 8. File-name Aliases
+ Below you can see the default aliases. You can always add/remove aliases by editing the `user_settings` file. There is also `Reset settings` option.
+
+![aliases](https://user-images.githubusercontent.com/87680516/145581954-e2e018c0-ae19-43ab-ba11-2b91bee82041.png)
+
+>Example:
+> 
+> `woodenTable_diffuse.1001.exr`
+> 
+> Since `diffuse` is in the file name and it is registered as an alias for **Base Color**, it will load tha file and connect it into the `Base color` input of the shader.
 
 >Base Color
 >>`basecolor`, `diffuse`, `albedo`, `base_color`, `base color`
@@ -113,11 +122,6 @@
 > 
 >Opacity
 >>`opacity`
-#
->Example:
-> 
-> `woodenTable_diffuse.1001.exr`
-> 
-> Since `diffuse` is in the file name and it is also an alias for **Base Color**, it will connect that file into the base color of the shader.
+
 
  
