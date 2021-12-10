@@ -1,5 +1,5 @@
 ## Shading_Kit_Maya
- Shading Kit for Maya by Efthymis B.
+ Shading Kit for **Maya** and **Arnold** by Efthymis B.
 
 ---
 
