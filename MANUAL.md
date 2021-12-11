@@ -83,7 +83,7 @@
 >
 > > Enable the `Use Directory` button.
 > 
-> >The script will iterate through each file in the given directory and if it finds any [Aliases](MANUAL.md#8-file-name-aliases) on the filename, it will load the corresponding file.
+> >The script will iterate through each file in the given directory and if it finds any Aliases _(see section 8)_ on the filename, it will load the corresponding file.
 
 
 ![use_directory](https://user-images.githubusercontent.com/87680516/145152367-0bc687f4-aaaa-4bee-85d2-00df9a72a64a.png)
@@ -154,4 +154,3 @@
 
 </p>
 </details>
- 
