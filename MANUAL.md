@@ -1,4 +1,4 @@
-##Shading Kit Manual
+# Shading Kit Manual
 
 ---
 <details><summary> 1. Shading Tab </summary>
@@ -145,7 +145,7 @@
 </p>
 </details>
 
-<details><summary> 8. Limitations </summary>
+<details><summary> 9. Limitations </summary>
 <p>
 
 * Supports only Arnold and `aiStandardSurface` shader.
