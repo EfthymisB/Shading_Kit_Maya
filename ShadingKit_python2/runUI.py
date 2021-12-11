@@ -436,16 +436,6 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
             "udim": False,
             "use_dir": False
         },
-            "metalnessButton": False,
-            "normalButton": False,
-            "opacityButton": False,
-            "save_reminder": "01.30.00",
-            "save_sound": False,
-            "specularButton": False,
-            "sssButton": False,
-            "transmissionButton": False,
-            "udim": False,
-            "use_dir": False
             "texture_aliases": {
                 "Base Color": ["base_color", ["basecolor", "diffuse", "albedo", "base_color", "base color"],
                                ".outColor", ".baseColor"],
