@@ -220,7 +220,11 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
         self.ui.comboBox_secs.activated.connect(self.change_save_reminder)
         self.save_reminder = (int(save_values[0]) * 3600) + (int(save_values[1]) * 60) + int(save_values[2])
 
-        self.ui.save_reminder_sound.setChecked(self.user_settings["save_sound"])
+        if os.name != 'nt':
+            self.ui.save_reminder_sound.setDisabled(True)
+            self.ui.save_reminder_sound.setChecked(False)
+        else:
+            self.ui.save_reminder_sound.setChecked(self.user_settings["save_sound"])
 
         # SET ICONS FOR SELECT/DESELECT ALL
         self.ui.selectAll.clicked.connect(self.select_all)
