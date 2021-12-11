@@ -1,10 +1,11 @@
 """
 Author: Efthymis B.
-Last Modified: 07/12/2021
+Last Modified: 11/12/2021
 
 Python 2.7 (Up to Maya 2020)
 Shading-Kit for Maya
 """
+import sys
 
 from maya.app.general.mayaMixin import MayaQWidgetDockableMixin
 from ShadingKit_python2.UIs import mainUI, shader_list, file_formats
@@ -17,9 +18,11 @@ import maya.cmds as cmds
 import mtoa.aovs as aovs
 import maya.mel as mel
 import shiboken2
-import winsound
 import json
 import os
+
+if os.name == 'nt':
+    import winsound
 
 try:
     reload(file_formats)
@@ -489,7 +492,7 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
         if self.current_time >= self.save_reminder:
             if (int(seconds) % 2) == 0:
                 self.ui.lastSave.setStyleSheet(u"color: rgba(200, 0, 0);")
-                if self.user_settings["save_sound"]:
+                if self.user_settings["save_sound"] and "winsound" in sys.modules:
                     duration = 50
                     freq = 4000
                     winsound.Beep(freq, duration)

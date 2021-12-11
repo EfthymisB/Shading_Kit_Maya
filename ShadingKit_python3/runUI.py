@@ -1,6 +1,6 @@
 """
 Author: Efthymis B.
-Last Modified: 07/12/2021
+Last Modified: 11/12/2021
 
 Python 3.7 (Maya 2022+)
 Shading-Kit for Maya
@@ -18,9 +18,11 @@ import mtoa.aovs as aovs
 import maya.mel as mel
 import shiboken2
 import importlib
-import winsound
 import json
 import os
+
+if os.name == 'nt':
+    import winsound
 
 try:
     importlib.reload(file_formats)
@@ -482,7 +484,7 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
         if self.current_time >= self.save_reminder:
             if (int(seconds) % 2) == 0:
                 self.ui.lastSave.setStyleSheet(u"color: rgba(200, 0, 0);")
-                if self.user_settings["save_sound"]:
+                if self.user_settings["save_sound"] and "winsound" in sys.modules:
                     duration = 50
                     freq = 4000
                     winsound.Beep(freq, duration)
