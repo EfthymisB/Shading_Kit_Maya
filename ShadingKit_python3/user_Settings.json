@@ -2,6 +2,7 @@
     "start_up_settings": {
         "assign_to_viewport": false,
         "baseColorButton": false,
+        "bumpButton": false,
         "but_color": " rgb(85, 255, 255)",
         "coatButton": false,
         "displacementButton": false,
@@ -20,9 +21,9 @@
         "save_sound": false,
         "specularButton": false,
         "sssButton": false,
-        "transmissionButton": false,
         "udim": false,
-        "use_dir": false
+        "use_dir": false,
+        "use_tx": false
     },
     "texture_aliases": {
         "Base Color": [
@@ -36,6 +37,14 @@
             ],
             ".outColor",
             ".baseColor"
+        ],
+        "Bump": [
+            "bump",
+            [
+                "bump"
+            ],
+            ".outColorR",
+            ".bumpMap"
         ],
         "Coat R.": [
             "coat_roughness",
@@ -67,11 +76,10 @@
         "Normal": [
             "normal",
             [
-                "normal",
-                "bump"
+                "normal"
             ],
-            ".outColorR",
-            ".bumpValue"
+            ".outColor",
+            ".input"
         ],
         "Opacity": [
             "opacity",
@@ -98,17 +106,6 @@
             ],
             ".outColorR",
             ".specularRoughness"
-        ],
-        "Transmis.": [
-            "transmission",
-            [
-                "transmission",
-                "transmissionweight",
-                "transmission_weight",
-                "transmission weight"
-            ],
-            ".outColorR",
-            ".transmission"
         ]
     }
 }

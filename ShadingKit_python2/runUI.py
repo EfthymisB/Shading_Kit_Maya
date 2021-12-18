@@ -1,11 +1,10 @@
 """
 Author: Efthymis B.
-Last Modified: 11/12/2021
+Last Modified: 18/12/2021
 
 Python 2.7 (Up to Maya 2020)
 Shading-Kit for Maya
 """
-import sys
 
 from maya.app.general.mayaMixin import MayaQWidgetDockableMixin
 from ShadingKit_python2.UIs import mainUI, shader_list, file_formats
@@ -17,9 +16,13 @@ import mtoa.utils as mutils
 import maya.cmds as cmds
 import mtoa.aovs as aovs
 import maya.mel as mel
+import webbrowser
 import shiboken2
 import json
+import sys
 import os
+
+version = "V1.2"
 
 if os.name == 'nt':
     import winsound
@@ -109,6 +112,11 @@ class Second(QtWidgets.QMainWindow):
             if old_settings["start_up_settings"]["file_formats"][but.objectName()[:-4]]:
                 but.setChecked(True)
 
+        if old_settings["start_up_settings"]["use_tx"]:
+            self.ui_file_formats.use_tx.setChecked(True)
+        else:
+            self.ui_file_formats.use_tx.setChecked(False)
+
         self.setWindowModality(QtCore.Qt.ApplicationModal)
         self.setWindowFlags(self.windowFlags() | QtCore.Qt.FramelessWindowHint)
 
@@ -128,6 +136,12 @@ class Second(QtWidgets.QMainWindow):
                 old_settings["start_up_settings"]["file_formats"][but.objectName()[:-4]] = True
             else:
                 old_settings["start_up_settings"]["file_formats"][but.objectName()[:-4]] = False
+
+        if self.ui_file_formats.use_tx.isChecked():
+            old_settings["start_up_settings"]["use_tx"] = True
+        else:
+            old_settings["start_up_settings"]["use_tx"] = False
+
 
         # Save and close user_Settings.json
         with open(user_settings_path, 'w') as file1:
@@ -150,6 +164,10 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
         self.ui = mainUI.Ui_MainWindow()
         self.ui.setupUi(self)
 
+        # Set current version
+        self.ui.version_label.setText(version)
+        self.ui.version_label.setStyleSheet('color: rgb(100,100,100);font: 36pt "Ink Free";')
+
         # CREATE CALLBACK AFTER SAVE/LOAD/NEW SCENE
         self.save_scene_callBack = OpenMaya.MSceneMessage.addCallback(OpenMaya.MSceneMessage.kAfterOpen,
                                                                       self.reset_save)
@@ -167,13 +185,13 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
             self.ui.normalButton: self.ui.Utils_Normal.buttons(),
             self.ui.coatButton: self.ui.Utils_Coat.buttons(),
             self.ui.sssButton: self.ui.Utils_SSS.buttons(),
-            self.ui.transmissionButton: self.ui.Utils_Trans.buttons(),
+            self.ui.bumpButton: self.ui.Utils_Bump.buttons(),
             self.ui.opacityButton: self.ui.Utils_Opacity.buttons()
         }
         # CREATE LIST WITH ALL THE UTILS CHECKBOXES
         self.all_util = self.ui.Utils_BC.buttons() + self.ui.Utils_Spec.buttons() + self.ui.Utils_Metal.buttons() \
                         + self.ui.Utils_Disp.buttons() + self.ui.Utils_Normal.buttons() + self.ui.Utils_Coat.buttons() \
-                        + self.ui.Utils_SSS.buttons() + self.ui.Utils_Trans.buttons() + self.ui.Utils_Opacity.buttons()
+                        + self.ui.Utils_SSS.buttons() + self.ui.Utils_Bump.buttons() + self.ui.Utils_Opacity.buttons()
 
         # CONNECT COMMAND ON BUTTONS (SHADING TAB)
         for but in self.ui.buttonGroup.buttons():
@@ -236,6 +254,26 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
         self.ui.deselectAll.setIcon(QtGui.QIcon(os.path.join(script_folder, "icons", "none.png")))
         self.ui.deselectAll.setIconSize(QtCore.QSize(20, 20))
         self.ui.deselectAll.installEventFilter(self)
+
+        self.ui.readme_but.clicked.connect(partial(self.open_link, 'readme'))
+        self.ui.readme_but.setIcon(QtGui.QIcon(os.path.join(script_folder, "icons", "github.png")))
+        self.ui.readme_but.setIconSize(QtCore.QSize(20, 20))
+
+        self.ui.manual_but.clicked.connect(partial(self.open_link, 'manual'))
+        self.ui.manual_but.setIcon(QtGui.QIcon(os.path.join(script_folder, "icons", "github.png")))
+        self.ui.manual_but.setIconSize(QtCore.QSize(20, 20))
+
+        self.ui.github_but.clicked.connect(partial(self.open_link, 'github'))
+        self.ui.github_but.setIcon(QtGui.QIcon(os.path.join(script_folder, "icons", "github.png")))
+        self.ui.github_but.setIconSize(QtCore.QSize(20, 20))
+
+        self.ui.gumroad_but.clicked.connect(partial(self.open_link, 'gumroad'))
+        self.ui.gumroad_but.setIcon(QtGui.QIcon(os.path.join(script_folder, "icons", "gumroad.png")))
+        self.ui.gumroad_but.setIconSize(QtCore.QSize(20, 20))
+
+        self.ui.contactme_but.clicked.connect(partial(self.open_link, 'contactme'))
+        self.ui.contactme_but.setIcon(QtGui.QIcon(os.path.join(script_folder, "icons", "gmail.png")))
+        self.ui.contactme_but.setIconSize(QtCore.QSize(20, 20))
 
         # CONNECT FUNCTION TO ADVANCED/SIMPLE BUTTON (SHADING TAB)
         self.ui.expand_Utils.clicked.connect(self.checkOnOff)
@@ -336,6 +374,18 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
     def test(self, *args):
         print 'It works!'
 
+    def open_link(self, button):
+        if button == 'readme':
+            webbrowser.open("https://github.com/EfthymisB/Shading_Kit_Maya#readme")
+        elif button == 'manual':
+            webbrowser.open("https://github.com/EfthymisB/Shading_Kit_Maya/blob/main/MANUAL.md#shading-kit-manual")
+        elif button == 'github':
+            webbrowser.open("https://github.com/EfthymisB/Shading_Kit_Maya")
+        elif button == 'gumroad':
+            webbrowser.open("https://efthymisb.gumroad.com/l/TWCNr")
+        elif button == 'contactme':
+            webbrowser.open("mailto:eftymisb.vfx@gmail.com")
+
     def helper_function(self, widget, color):
         widget.setStyleSheet("background-color: rgba({}, {}, {}, {});"
                              "border-style:none;".format(color.red(), color.green(), color.blue(), color.alpha()))
@@ -421,6 +471,7 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
         new_settings = {"start_up_settings": {
             "assign_to_viewport": False,
             "baseColorButton": False,
+            "bumpButton": False,
             "but_color": " rgb(85, 255, 255)",
             "coatButton": False,
             "displacementButton": False,
@@ -439,23 +490,20 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
             "save_sound": False,
             "specularButton": False,
             "sssButton": False,
-            "transmissionButton": False,
             "udim": False,
-            "use_dir": False
+            "use_dir": False,
+            "use_tx": False
         },
             "texture_aliases": {
-                "Base Color": ["base_color", ["basecolor", "diffuse", "albedo", "base_color", "base color"],
-                               ".outColor", ".baseColor"],
+                "Base Color": ["base_color", ["basecolor", "diffuse", "albedo", "base_color", "base color"], ".outColor", ".baseColor"],
+                "Bump": ["bump", ["bump"], ".outColorR", ".bumpMap"],
                 "Coat R.": ["coat_roughness", ["coat"], ".outColorR", ".coatRoughness"],
                 "Displace": ["displacement", ["height", "displace"], ".outColorR", ".displacement"],
                 "Metalness": ["metalness", ["metal", "metalness", "metallic"], ".outColorR", ".metalness"],
-                "Normal": ["normal", ["normal", "bump"], ".outColorR", ".bumpValue"],
+                "Normal": ["normal", ["normal"], ".outColor", ".input"],
                 "Opacity": ["opacity", ["opacity"], ".outColor", ".opacity"],
                 "SSS": ["subsurface", ["sss", "subsurface"], ".outColor", ".subsurfaceColor"],
-                "Specular R.": ["spec_roughness", ["spec", "roughness"], ".outColorR", ".specularRoughness"],
-                "Transmis.": ["transmission",
-                              ["transmission", "transmissionweight", "transmission_weight", "transmission weight"],
-                              ".outColorR", ".transmission"]
+                "Specular R.": ["spec_roughness", ["spec", "roughness"], ".outColorR", ".specularRoughness"]
             }
         }
 
@@ -661,7 +709,7 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
                 for item in self.util_grps[but]:
                     item.setDisabled(True)
 
-    def utility_nodes(self, file_node, new_shader, txt, connection, node_output, *args):
+    def utility_nodes(self, file_node, new_shader, txt, connection, node_output, new_selection, *args):
 
         sel_nod = []
 
@@ -670,21 +718,26 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
                 sel_nod.append(ob.objectName())
 
         if sel_nod:
-            ut_node1 = cmds.shadingNode(sel_nod[0].split('_')[1], name=sel_nod[0], asUtility=True)
+            ut_node1 = cmds.shadingNode(sel_nod[0].split('_')[1], name=sel_nod[0], asUtility=True, ss=True)
+            new_selection.append(ut_node1)
             cmds.connectAttr(file_node + '.outColor', ut_node1 + '.input')
             if len(sel_nod) == 1:
                 cmds.connectAttr(ut_node1 + node_output, new_shader + connection)
             elif len(sel_nod) == 2:
-                ut_node2 = cmds.shadingNode(sel_nod[1].split('_')[1], name=sel_nod[1], asUtility=True)
+                ut_node2 = cmds.shadingNode(sel_nod[1].split('_')[1], name=sel_nod[1], asUtility=True, ss=True)
+                new_selection.append(ut_node2)
                 cmds.connectAttr(ut_node1 + '.outColor', ut_node2 + '.input')
                 cmds.connectAttr(ut_node2 + node_output, new_shader + connection)
             elif len(sel_nod) == 3:
-                ut_node2 = cmds.shadingNode(sel_nod[1].split('_')[1], name=sel_nod[1], asUtility=True)
-                ut_node3 = cmds.shadingNode(sel_nod[2].split('_')[1], name=sel_nod[2], asUtility=True)
+                ut_node2 = cmds.shadingNode(sel_nod[1].split('_')[1], name=sel_nod[1], asUtility=True, ss=True)
+                ut_node3 = cmds.shadingNode(sel_nod[2].split('_')[1], name=sel_nod[2], asUtility=True, ss=True)
+                new_selection.extend((ut_node2, ut_node3))
 
                 cmds.connectAttr(ut_node1 + '.outColor', ut_node2 + '.input')
                 cmds.connectAttr(ut_node2 + '.outColor', ut_node3 + '.input')
                 cmds.connectAttr(ut_node3 + node_output, new_shader + connection)
+
+            return new_selection
         else:
             cmds.connectAttr(file_node + node_output, new_shader + connection)
 
@@ -695,28 +748,42 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
         txt_dir_list = []
         for key in self.user_settings['file_formats'].keys():
             if self.user_settings['file_formats'][key]:
-                txt_dir_list.extend(cmds.getFileList(folder=directory_path, fs='*.' + str(key)))
+                txt_dir_list.extend(cmds.getFileList(folder=directory_path, fs="*.{}".format(key)))
 
         if txt_dir_list:
             for txt_file in txt_dir_list:
                 if any(word.lower() in txt_file.lower() for word in abbreviations):
-                    cmds.setAttr(file_node + '.fileTextureName', str(directory_path) + '\\' + str(txt_file),
-                                 type='string')
+
+                    # If "Use TX" option is enabled, check if a TX file exists and if it does, use it
+                    check_tx = os.path.join(directory_path, "{}.tx".format(os.path.splitext(txt_file)[0]))
+                    if self.user_settings["use_tx"] and os.path.isfile(check_tx):
+                        cmds.setAttr('{}.fileTextureName'.format(file_node), check_tx, type='string')
+                    else:
+                        cmds.setAttr('{}.fileTextureName'.format(file_node), os.path.join(directory_path, txt_file), type='string')
                     break
 
     def create_shader(self):
 
-        selected_objects = cmds.ls(sl=True, long=True)
+        with open(user_settings_path, 'r') as file1:
+            old_settings = json.load(file1)
+        self.user_settings = old_settings['start_up_settings']
 
-        use_dir = False
+        selected_objects = cmds.ls(sl=True, long=True)
+        cmds.select(clear=True)
+
+        new_selection = []
+
         if self.ui.use_dir.isChecked():
             use_dir = True
+        else:
+            use_dir = False
 
         shader_name = self.ui.shader_text.text()
         if shader_name.isspace() or not shader_name:
             new_shader = cmds.shadingNode('aiStandardSurface', asShader=True, ss=True)
         else:
             new_shader = cmds.shadingNode('aiStandardSurface', asShader=True, name=shader_name, ss=True)
+        new_selection.append(new_shader)
 
         if self.ui.assign_to_viewport.isChecked():
             cmds.select(clear=True)
@@ -726,43 +793,64 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
 
         cmds.setAttr(new_shader + '.base', 1)
 
-        tiling = 0
         if self.ui.udim.isChecked():
+            # Set UV Tiling mode to UDIM (Mari)
             tiling = 3
+        else:
+            # Leave UV Tiling mode at default
+            tiling = 0
 
         txt_found = []
+        for txt in sorted(self.ui.buttonGroup.buttons(), key=lambda x: x.text()):
 
-        for txt in self.ui.buttonGroup.buttons():
             if txt.isChecked():
                 button_info = self.texture_pass_list[txt.text()]
 
-                file_node = cmds.shadingNode('file', asTexture=True, name=button_info[0], skipSelect=True)
+                file_node = cmds.shadingNode('file', asTexture=True, name="{}_{}".format(button_info[0], new_shader), skipSelect=True)
+                new_selection.append(file_node)
                 cmds.setAttr(file_node + '.uvTilingMode', tiling)
 
                 if txt.text() == 'Displace':
-                    disp_shader = cmds.shadingNode('displacementShader', name=shader_name + '_disp', asShader=True)
+                    disp_shader = cmds.shadingNode('displacementShader', name=new_shader + '_disp', asShader=True, skipSelect=True)
+                    new_selection.append(disp_shader)
                     cmds.connectAttr(disp_shader + '.displacement', new_shader + 'SG.displacementShader')
                     txt_found.append([file_node, button_info[1]])
-                    self.utility_nodes(file_node, disp_shader, txt, button_info[3], button_info[2])
+                    self.utility_nodes(file_node, disp_shader, txt, button_info[3], button_info[2], new_selection)
 
-                    cmds.setAttr(shader_name + '_disp.aiDisplacementZeroValue', 0.5)
-
-                elif txt.text() == 'Normal':
-                    normal_node = cmds.shadingNode('bump2d', asUtility=True, ss=True)
-                    cmds.connectAttr(normal_node + '.outNormal', new_shader + '.normalCamera')
+                    cmds.setAttr(new_shader + '_disp.aiDisplacementZeroValue', 0.5)
+                elif txt.text() == 'Bump':
+                    bump_node = cmds.shadingNode('aiBump2d', asUtility=True, ss=True, name="aiBump2d_{}".format(new_shader))
+                    new_selection.append(bump_node)
+                    cmds.connectAttr(bump_node + '.outValue', new_shader + '.normalCamera')
                     txt_found.append([file_node, button_info[1]])
-                    self.utility_nodes(file_node, normal_node, txt, button_info[3], button_info[2])
+                    self.utility_nodes(file_node, bump_node, txt, button_info[3], button_info[2], new_selection)
+                elif txt.text() == 'Normal':
+                    normal_node = cmds.shadingNode('aiNormalMap', asUtility=True, ss=True, name="aiNormalMap_{}".format(new_shader))
+                    new_selection.append(normal_node)
+                    if self.ui.bumpButton.isChecked():
+                        cmds.connectAttr(normal_node + '.outValue', bump_node + '.normal')
+
+                    else:
+                        cmds.connectAttr(normal_node + '.outValue', new_shader + '.normalCamera')
+                    txt_found.append([file_node, button_info[1]])
+                    self.utility_nodes(file_node, normal_node, txt, button_info[3], button_info[2], new_selection)
 
                 else:
                     txt_found.append([file_node, button_info[1]])
-                    self.utility_nodes(file_node, new_shader, txt, button_info[3], button_info[2])
+                    self.utility_nodes(file_node, new_shader, txt, button_info[3], button_info[2], new_selection)
 
         if txt_found:
             plc2dtxtr = cmds.shadingNode('place2dTexture', asUtility=True, skipSelect=True)
+            new_selection.append(plc2dtxtr)
             for node in txt_found:
                 cmds.defaultNavigation(connectToExisting=True, source=plc2dtxtr, destination=node[0])
                 if use_dir:
                     self.check_dir(node[0], node[1])
+
+        cmds.select(new_selection)
+        cmds.select("{}SG".format(new_shader), add=True, ado=False, ne=True)
+
+        file1.close()
 
     def sel_all_aovs(self):
         for but in self.ui.AOV_buts.buttons():
@@ -821,31 +909,38 @@ class MainWindow(MayaQWidgetDockableMixin, QtWidgets.QMainWindow):
 
                                     if shader_att == '.displacement':
                                         if cmds.listConnections(pair[1] + '.displacementShader', plugs=True):
-                                            cmds.shadingNode('aiUserDataFloat', name=ut_name, asUtility=True,
-                                                             skipSelect=True)
-                                            cmds.connectAttr(
-                                                cmds.listConnections(pair[1] + '.displacementShader', plugs=True)[0],
-                                                ut_name + '.default')
-                                            cmds.connectAttr(ut_name + '.outValue',
-                                                             pair[1] + ".aiCustomAOVs[{}].aovInput".format(customAOV))
+                                            cmds.shadingNode('aiUserDataFloat', name=ut_name, asUtility=True, skipSelect=True)
+
+                                            # .defaultValue for Maya2018 / .default for Maya2022
+                                            try:
+                                                cmds.connectAttr(cmds.listConnections(pair[1] + '.displacementShader', plugs=True)[0], ut_name + '.defaultValue')
+                                            except RuntimeError:
+                                                cmds.connectAttr(cmds.listConnections(pair[1] + '.displacementShader', plugs=True)[0], ut_name + '.default')
+                                            cmds.connectAttr(ut_name + '.outValue', pair[1] + ".aiCustomAOVs[{}].aovInput".format(customAOV))
                                         else:
                                             aovs.AOVInterface().removeAOV(aov_name[0])
                                     else:
-                                        if shader_att == '.bumpValue':
+                                        if shader_att in ('.input', '.bumpMap'):
                                             shader_att = '.normalCamera'
 
                                         if cmds.getAttr(pair[0] + shader_att, type=True) == 'float3':
-                                            cmds.shadingNode('aiUserDataColor', name=ut_name, asUtility=True,
-                                                             skipSelect=True)
-                                            cmds.connectAttr(pair[0] + shader_att, ut_name + '.default')
-                                            cmds.connectAttr(ut_name + '.outColor',
-                                                             pair[1] + ".aiCustomAOVs[{}].aovInput".format(customAOV))
+                                            cmds.shadingNode('aiUserDataColor', name=ut_name, asUtility=True, skipSelect=True)
+
+                                            # .defaultValue for Maya2018 / .default for Maya2022
+                                            try:
+                                                cmds.connectAttr(pair[0] + shader_att, ut_name + '.defaultValue')
+                                            except RuntimeError:
+                                                cmds.connectAttr(pair[0] + shader_att, ut_name + '.default')
+                                            cmds.connectAttr(ut_name + '.outColor', pair[1] + ".aiCustomAOVs[{}].aovInput".format(customAOV))
                                         elif cmds.getAttr(pair[0] + shader_att, type=True) == 'float':
-                                            cmds.shadingNode('aiUserDataFloat', name=ut_name, asUtility=True,
-                                                             skipSelect=True)
-                                            cmds.connectAttr(pair[0] + shader_att, ut_name + '.default')
-                                            cmds.connectAttr(ut_name + '.outValue',
-                                                             pair[1] + ".aiCustomAOVs[{}].aovInput".format(customAOV))
+                                            cmds.shadingNode('aiUserDataFloat', name=ut_name, asUtility=True, skipSelect=True)
+
+                                            # .defaultValue for Maya2018 / .default for Maya2022
+                                            try:
+                                                cmds.connectAttr(pair[0] + shader_att, ut_name + '.defaultValue')
+                                            except RuntimeError:
+                                                cmds.connectAttr(pair[0] + shader_att, ut_name + '.default')
+                                            cmds.connectAttr(ut_name + '.outValue', pair[1] + ".aiCustomAOVs[{}].aovInput".format(customAOV))
                     else:
                         already_exist.append(aov_name[0])
                 if already_exist:

@@ -276,15 +276,15 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setHorizontalSpacing(6)
         self.gridLayout_2.setVerticalSpacing(0)
         self.gridLayout_2.setContentsMargins(5, 2, 5, 2)
-        self.transmissionButton = QPushButton(self.gridLayoutWidget_2)
+        self.bumpButton = QPushButton(self.gridLayoutWidget_2)
         self.buttonGroup = QButtonGroup(MainWindow)
         self.buttonGroup.setObjectName("buttonGroup")
         self.buttonGroup.setExclusive(False)
-        self.buttonGroup.addButton(self.transmissionButton)
-        self.transmissionButton.setObjectName("transmissionButton")
-        self.transmissionButton.setMinimumSize(QSize(60, 20))
-        self.transmissionButton.setCursor(QCursor(Qt.PointingHandCursor))
-        self.transmissionButton.setStyleSheet("QWidget {\n"
+        self.buttonGroup.addButton(self.bumpButton)
+        self.bumpButton.setObjectName("bumpButton")
+        self.bumpButton.setMinimumSize(QSize(60, 20))
+        self.bumpButton.setCursor(QCursor(Qt.PointingHandCursor))
+        self.bumpButton.setStyleSheet("QWidget {\n"
 "color: white;\n"
 "background-color: rgba(70, 70, 70);\n"
 "border-style:solid;\n"
@@ -300,9 +300,9 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.transmissionButton.setCheckable(True)
+        self.bumpButton.setCheckable(True)
 
-        self.gridLayout_2.addWidget(self.transmissionButton, 7, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.bumpButton, 7, 3, 1, 1)
 
         self.baseColorButton = QPushButton(self.gridLayoutWidget_2)
         self.buttonGroup.addButton(self.baseColorButton)
@@ -627,31 +627,31 @@ class Ui_MainWindow(object):
 
         self.gridLayout_12 = QGridLayout()
         self.gridLayout_12.setObjectName("gridLayout_12")
-        self.trans_aiColorCorrect = QCheckBox(self.gridLayoutWidget_2)
-        self.Utils_Trans = QButtonGroup(MainWindow)
-        self.Utils_Trans.setObjectName("Utils_Trans")
-        self.Utils_Trans.setExclusive(False)
-        self.Utils_Trans.addButton(self.trans_aiColorCorrect)
-        self.trans_aiColorCorrect.setObjectName("trans_aiColorCorrect")
-        self.trans_aiColorCorrect.setEnabled(True)
+        self.bump_aiColorCorrect = QCheckBox(self.gridLayoutWidget_2)
+        self.Utils_Bump = QButtonGroup(MainWindow)
+        self.Utils_Bump.setObjectName("Utils_Bump")
+        self.Utils_Bump.setExclusive(False)
+        self.Utils_Bump.addButton(self.bump_aiColorCorrect)
+        self.bump_aiColorCorrect.setObjectName("bump_aiColorCorrect")
+        self.bump_aiColorCorrect.setEnabled(True)
 
-        self.gridLayout_12.addWidget(self.trans_aiColorCorrect, 2, 0, 1, 1)
+        self.gridLayout_12.addWidget(self.bump_aiColorCorrect, 2, 0, 1, 1)
 
         self.verticalSpacer_20 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.gridLayout_12.addItem(self.verticalSpacer_20, 0, 0, 1, 1)
 
-        self.trans_aiRange = QCheckBox(self.gridLayoutWidget_2)
-        self.Utils_Trans.addButton(self.trans_aiRange)
-        self.trans_aiRange.setObjectName("trans_aiRange")
+        self.bump_aiRange = QCheckBox(self.gridLayoutWidget_2)
+        self.Utils_Bump.addButton(self.bump_aiRange)
+        self.bump_aiRange.setObjectName("bump_aiRange")
 
-        self.gridLayout_12.addWidget(self.trans_aiRange, 1, 0, 1, 1)
+        self.gridLayout_12.addWidget(self.bump_aiRange, 1, 0, 1, 1)
 
-        self.trans_aiClamp = QCheckBox(self.gridLayoutWidget_2)
-        self.Utils_Trans.addButton(self.trans_aiClamp)
-        self.trans_aiClamp.setObjectName("trans_aiClamp")
+        self.bump_aiClamp = QCheckBox(self.gridLayoutWidget_2)
+        self.Utils_Bump.addButton(self.bump_aiClamp)
+        self.bump_aiClamp.setObjectName("bump_aiClamp")
 
-        self.gridLayout_12.addWidget(self.trans_aiClamp, 3, 0, 1, 1)
+        self.gridLayout_12.addWidget(self.bump_aiClamp, 3, 0, 1, 1)
 
 
         self.horizontalLayout_9.addLayout(self.gridLayout_12)
@@ -1097,12 +1097,12 @@ class Ui_MainWindow(object):
 
         self.gridLayout_16.addWidget(self.coatButton_AOV, 2, 1, 1, 1)
 
-        self.transmissionButton_AOV = QPushButton(self.gridLayoutWidget_7)
-        self.AOV_buts.addButton(self.transmissionButton_AOV)
-        self.transmissionButton_AOV.setObjectName("transmissionButton_AOV")
-        self.transmissionButton_AOV.setMinimumSize(QSize(60, 20))
-        self.transmissionButton_AOV.setCursor(QCursor(Qt.PointingHandCursor))
-        self.transmissionButton_AOV.setStyleSheet("QWidget {\n"
+        self.bumpButton_AOV = QPushButton(self.gridLayoutWidget_7)
+        self.AOV_buts.addButton(self.bumpButton_AOV)
+        self.bumpButton_AOV.setObjectName("bumpButton_AOV")
+        self.bumpButton_AOV.setMinimumSize(QSize(60, 20))
+        self.bumpButton_AOV.setCursor(QCursor(Qt.PointingHandCursor))
+        self.bumpButton_AOV.setStyleSheet("QWidget {\n"
 "color: white;\n"
 "background-color: rgba(70, 70, 70);\n"
 "border-style:solid;\n"
@@ -1118,9 +1118,9 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.transmissionButton_AOV.setCheckable(True)
+        self.bumpButton_AOV.setCheckable(True)
 
-        self.gridLayout_16.addWidget(self.transmissionButton_AOV, 3, 2, 1, 1)
+        self.gridLayout_16.addWidget(self.bumpButton_AOV, 3, 2, 1, 1)
 
         self.sssButton_AOV = QPushButton(self.gridLayoutWidget_7)
         self.AOV_buts.addButton(self.sssButton_AOV)
@@ -1526,12 +1526,12 @@ class Ui_MainWindow(object):
 
         self.gridLayout_3.addWidget(self.displacementButton_def, 1, 1, 1, 1)
 
-        self.transmissionButton_def = QPushButton(self.gridLayoutWidget_3)
-        self.buttonGroup_def.addButton(self.transmissionButton_def)
-        self.transmissionButton_def.setObjectName("transmissionButton_def")
-        self.transmissionButton_def.setMinimumSize(QSize(71, 20))
-        self.transmissionButton_def.setCursor(QCursor(Qt.PointingHandCursor))
-        self.transmissionButton_def.setStyleSheet("QWidget {\n"
+        self.bumpButton_def = QPushButton(self.gridLayoutWidget_3)
+        self.buttonGroup_def.addButton(self.bumpButton_def)
+        self.bumpButton_def.setObjectName("bumpButton_def")
+        self.bumpButton_def.setMinimumSize(QSize(71, 20))
+        self.bumpButton_def.setCursor(QCursor(Qt.PointingHandCursor))
+        self.bumpButton_def.setStyleSheet("QWidget {\n"
 "color: white;\n"
 "background-color: rgba(70, 70, 70);\n"
 "border-style:solid;\n"
@@ -1547,9 +1547,9 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.transmissionButton_def.setCheckable(True)
+        self.bumpButton_def.setCheckable(True)
 
-        self.gridLayout_3.addWidget(self.transmissionButton_def, 3, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.bumpButton_def, 3, 1, 1, 1)
 
         self.assign_to_selected_default = QPushButton(self.gridLayoutWidget_3)
         self.assign_to_selected_default.setObjectName("assign_to_selected_default")
@@ -2088,6 +2088,144 @@ class Ui_MainWindow(object):
         self.save_reminder_sound.setObjectName("save_reminder_sound")
         self.save_reminder_sound.setGeometry(QRect(20, 342, 161, 17))
         self.tabWidget.addTab(self.tab_3, "")
+        self.tab_2 = QWidget()
+        self.tab_2.setObjectName("tab_2")
+        self.version_label = QLabel(self.tab_2)
+        self.version_label.setObjectName("version_label")
+        self.version_label.setGeometry(QRect(10, 287, 191, 81))
+        self.version_label.setStyleSheet("")
+        self.version_label.setAlignment(Qt.AlignCenter)
+        self.label_2 = QLabel(self.tab_2)
+        self.label_2.setObjectName("label_2")
+        self.label_2.setGeometry(QRect(10, 258, 191, 21))
+        self.label_2.setAlignment(Qt.AlignCenter)
+        self.widget1 = QWidget(self.tab_2)
+        self.widget1.setObjectName("widget1")
+        self.widget1.setGeometry(QRect(20, 19, 171, 221))
+        self.verticalLayout = QVBoxLayout(self.widget1)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.readme_but = QPushButton(self.widget1)
+        self.readme_but.setObjectName("readme_but")
+        self.readme_but.setMinimumSize(QSize(71, 30))
+        self.readme_but.setCursor(QCursor(Qt.PointingHandCursor))
+        self.readme_but.setStyleSheet("QWidget {\n"
+"color: white;\n"
+"background-color: rgba(70, 70, 70);\n"
+"border-style:solid;\n"
+"border-width:1px;\n"
+"border-radius:5px;\n"
+"border-color: rgb(140, 140, 140);}\n"
+"\n"
+"QWidget:hover{    \n"
+"background-color: rgb(100, 100, 100);}\n"
+"\n"
+"QWidget:pressed{\n"
+"background-color: rgba(50, 50, 50);}\n"
+"\n"
+"\n"
+"")
+        self.readme_but.setCheckable(True)
+
+        self.verticalLayout.addWidget(self.readme_but)
+
+        self.manual_but = QPushButton(self.widget1)
+        self.manual_but.setObjectName("manual_but")
+        self.manual_but.setMinimumSize(QSize(71, 30))
+        self.manual_but.setCursor(QCursor(Qt.PointingHandCursor))
+        self.manual_but.setStyleSheet("QWidget {\n"
+"color: white;\n"
+"background-color: rgba(70, 70, 70);\n"
+"border-style:solid;\n"
+"border-width:1px;\n"
+"border-radius:5px;\n"
+"border-color: rgb(140, 140, 140);}\n"
+"\n"
+"QWidget:hover{    \n"
+"background-color: rgb(100, 100, 100);}\n"
+"\n"
+"QWidget:pressed{\n"
+"background-color: rgba(50, 50, 50);}\n"
+"\n"
+"\n"
+"")
+        self.manual_but.setCheckable(True)
+
+        self.verticalLayout.addWidget(self.manual_but)
+
+        self.github_but = QPushButton(self.widget1)
+        self.github_but.setObjectName("github_but")
+        self.github_but.setMinimumSize(QSize(71, 30))
+        self.github_but.setCursor(QCursor(Qt.PointingHandCursor))
+        self.github_but.setStyleSheet("QWidget {\n"
+"color: white;\n"
+"background-color: rgba(70, 70, 70);\n"
+"border-style:solid;\n"
+"border-width:1px;\n"
+"border-radius:5px;\n"
+"border-color: rgb(140, 140, 140);}\n"
+"\n"
+"QWidget:hover{    \n"
+"background-color: rgb(100, 100, 100);}\n"
+"\n"
+"QWidget:pressed{\n"
+"background-color: rgba(50, 50, 50);}\n"
+"\n"
+"\n"
+"")
+        self.github_but.setCheckable(True)
+
+        self.verticalLayout.addWidget(self.github_but)
+
+        self.gumroad_but = QPushButton(self.widget1)
+        self.gumroad_but.setObjectName("gumroad_but")
+        self.gumroad_but.setMinimumSize(QSize(71, 30))
+        self.gumroad_but.setCursor(QCursor(Qt.PointingHandCursor))
+        self.gumroad_but.setStyleSheet("QWidget {\n"
+"color: white;\n"
+"background-color: rgba(70, 70, 70);\n"
+"border-style:solid;\n"
+"border-width:1px;\n"
+"border-radius:5px;\n"
+"border-color: rgb(140, 140, 140);}\n"
+"\n"
+"QWidget:hover{    \n"
+"background-color: rgb(100, 100, 100);}\n"
+"\n"
+"QWidget:pressed{\n"
+"background-color: rgba(50, 50, 50);}\n"
+"\n"
+"\n"
+"")
+        self.gumroad_but.setCheckable(True)
+
+        self.verticalLayout.addWidget(self.gumroad_but)
+
+        self.contactme_but = QPushButton(self.widget1)
+        self.contactme_but.setObjectName("contactme_but")
+        self.contactme_but.setMinimumSize(QSize(71, 30))
+        self.contactme_but.setCursor(QCursor(Qt.PointingHandCursor))
+        self.contactme_but.setStyleSheet("QWidget {\n"
+"color: white;\n"
+"background-color: rgba(70, 70, 70);\n"
+"border-style:solid;\n"
+"border-width:1px;\n"
+"border-radius:5px;\n"
+"border-color: rgb(140, 140, 140);}\n"
+"\n"
+"QWidget:hover{    \n"
+"background-color: rgb(100, 100, 100);}\n"
+"\n"
+"QWidget:pressed{\n"
+"background-color: rgba(50, 50, 50);}\n"
+"\n"
+"\n"
+"")
+        self.contactme_but.setCheckable(True)
+
+        self.verticalLayout.addWidget(self.contactme_but)
+
+        self.tabWidget.addTab(self.tab_2, "")
         self.gridLayoutWidget_4 = QWidget(self.centralwidget)
         self.gridLayoutWidget_4.setObjectName("gridLayoutWidget_4")
         self.gridLayoutWidget_4.setGeometry(QRect(6, 403, 131, 53))
@@ -2200,9 +2338,9 @@ class Ui_MainWindow(object):
         self.createShader.setText(QCoreApplication.translate("MainWindow", "Create", None))
         self.deleteShader.setText(QCoreApplication.translate("MainWindow", "Delete", None))
 #if QT_CONFIG(statustip)
-        self.transmissionButton.setStatusTip(QCoreApplication.translate("MainWindow", "RightClick: Select Utility nodes", None))
+        self.bumpButton.setStatusTip(QCoreApplication.translate("MainWindow", "RightClick: Select Utility nodes", None))
 #endif // QT_CONFIG(statustip)
-        self.transmissionButton.setText(QCoreApplication.translate("MainWindow", "Transmis.", None))
+        self.bumpButton.setText(QCoreApplication.translate("MainWindow", "Bump", None))
 #if QT_CONFIG(statustip)
         self.baseColorButton.setStatusTip(QCoreApplication.translate("MainWindow", "RightClick: Select Utility nodes", None))
 #endif // QT_CONFIG(statustip)
@@ -2236,9 +2374,9 @@ class Ui_MainWindow(object):
         self.disp_aiColorCorrect.setText(QCoreApplication.translate("MainWindow", "CC", None))
         self.disp_aiClamp.setText(QCoreApplication.translate("MainWindow", "CL", None))
         self.tree_but_8.setText("")
-        self.trans_aiColorCorrect.setText(QCoreApplication.translate("MainWindow", "CC", None))
-        self.trans_aiRange.setText(QCoreApplication.translate("MainWindow", "RG", None))
-        self.trans_aiClamp.setText(QCoreApplication.translate("MainWindow", "CL", None))
+        self.bump_aiColorCorrect.setText(QCoreApplication.translate("MainWindow", "CC", None))
+        self.bump_aiRange.setText(QCoreApplication.translate("MainWindow", "RG", None))
+        self.bump_aiClamp.setText(QCoreApplication.translate("MainWindow", "CL", None))
 #if QT_CONFIG(statustip)
         self.sssButton.setStatusTip(QCoreApplication.translate("MainWindow", "RightClick: Select Utility nodes", None))
 #endif // QT_CONFIG(statustip)
@@ -2292,9 +2430,9 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(statustip)
         self.coatButton_AOV.setText(QCoreApplication.translate("MainWindow", "Coat R.", None))
 #if QT_CONFIG(statustip)
-        self.transmissionButton_AOV.setStatusTip(QCoreApplication.translate("MainWindow", "RightClick: Select Utility nodes", None))
+        self.bumpButton_AOV.setStatusTip(QCoreApplication.translate("MainWindow", "RightClick: Select Utility nodes", None))
 #endif // QT_CONFIG(statustip)
-        self.transmissionButton_AOV.setText(QCoreApplication.translate("MainWindow", "Transmis.", None))
+        self.bumpButton_AOV.setText(QCoreApplication.translate("MainWindow", "Bump", None))
 #if QT_CONFIG(statustip)
         self.sssButton_AOV.setStatusTip(QCoreApplication.translate("MainWindow", "RightClick: Select Utility nodes", None))
 #endif // QT_CONFIG(statustip)
@@ -2337,7 +2475,7 @@ class Ui_MainWindow(object):
         self.metalnessButton_def.setText(QCoreApplication.translate("MainWindow", "Metalness", None))
         self.sssButton_def.setText(QCoreApplication.translate("MainWindow", "SSS", None))
         self.displacementButton_def.setText(QCoreApplication.translate("MainWindow", "Displace", None))
-        self.transmissionButton_def.setText(QCoreApplication.translate("MainWindow", "Transmis.", None))
+        self.bumpButton_def.setText(QCoreApplication.translate("MainWindow", "Bump", None))
         self.assign_to_selected_default.setText(QCoreApplication.translate("MainWindow", "Assign sel.", None))
         self.udim_default.setText(QCoreApplication.translate("MainWindow", "UDIM", None))
         self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", "Button Outline Color", None))
@@ -2434,6 +2572,17 @@ class Ui_MainWindow(object):
         self.reset_settings.setText(QCoreApplication.translate("MainWindow", "Reset settings", None))
         self.save_reminder_sound.setText(QCoreApplication.translate("MainWindow", "Save Reminder Sound", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QCoreApplication.translate("MainWindow", "Settings", None))
+        self.version_label.setText(QCoreApplication.translate("MainWindow", "TextLabel", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", "Current version", None))
+        self.readme_but.setText(QCoreApplication.translate("MainWindow", "README", None))
+        self.manual_but.setText(QCoreApplication.translate("MainWindow", "MANUAL", None))
+        self.github_but.setText(QCoreApplication.translate("MainWindow", "GitHub", None))
+        self.gumroad_but.setText(QCoreApplication.translate("MainWindow", "Gumroad", None))
+#if QT_CONFIG(tooltip)
+        self.contactme_but.setToolTip(QCoreApplication.translate("MainWindow", "efthymisb.vfx@gmail.com", None))
+#endif // QT_CONFIG(tooltip)
+        self.contactme_but.setText(QCoreApplication.translate("MainWindow", "Contact me", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", "About", None))
         self.lastSave.setText(QCoreApplication.translate("MainWindow", "0", None))
         self.textureFileCountLabel.setText(QCoreApplication.translate("MainWindow", "File Textures", None))
         self.shaderCountLabel.setText(QCoreApplication.translate("MainWindow", "aiSS Shaders", None))
