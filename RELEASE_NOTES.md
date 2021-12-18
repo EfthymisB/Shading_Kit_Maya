@@ -6,7 +6,7 @@
 ## ![V1.2](https://img.shields.io/badge/New_Features-7aaf00)
 
 - New `Bump` layer option.
-- The entie Shading Network is being selected after creation.
+- The entire Shading Network is being selected after creation.
 - A new option `Use TX Textures` has been added in the `File formats menu`. When enabled, the `.tx` file will be loaded into the file node (if there is one)
 
 ![maya_iI4AuHaI9H](https://user-images.githubusercontent.com/87680516/146624775-7d7dc461-bba4-4381-a120-c775a2ea2ed9.png)
@@ -19,8 +19,8 @@
 
 ![bump_and_normal](https://user-images.githubusercontent.com/87680516/146624738-44c1470b-42b7-41de-aa29-99d0de3c18f6.png)
 
-- Updates licenses.
-- Added Realease Notes file.
+- Updated licenses.
+- Added Release Notes file.
 - Added `About` tab with useful links.
 
 ---
